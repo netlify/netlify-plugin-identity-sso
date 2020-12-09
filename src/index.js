@@ -28,19 +28,9 @@ const loginPage = '/_netlify-sso'
 const authFunc = 'sso-auth'
 
 /**
- * @param {{ config: NetlifyConfig, functionsDir?: string, publishDir?: string }} params
+ * @param {{ config: NetlifyConfig, functionsDir: string, publishDir: string }} params
  */
-async function generateSSO({
-  config /* &mut */,
-  functionsDir = '_netlify_sso_functions',
-  publishDir = '_netlify_sso_publish',
-}) {
-  config.build = {
-    ...config.build,
-    functions: functionsDir,
-    publish: publishDir,
-  }
-
+async function generateSSO({ config /* &mut */, functionsDir, publishDir }) {
   await fs.mkdir(functionsDir, { recursive: true })
   await fs.mkdir(publishDir, { recursive: true })
 
@@ -106,11 +96,11 @@ module.exports = {
     // Whole configuration file. For example, content of `netlify.toml`
     netlifyConfig,
     // Build constants
-    constants: { PUBLISH_DIR, FUNCTIONS_SRC },
+    constants: { PUBLISH_DIR, FUNCTIONS_DIST },
   }) {
     await generateSSO({
       config: netlifyConfig,
-      functionsDir: FUNCTIONS_SRC,
+      functionsDir: FUNCTIONS_DIST,
       publishDir: PUBLISH_DIR,
     })
 
