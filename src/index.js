@@ -54,6 +54,7 @@ async function generateSSO({
     path.join(functionsDir, `${authFunc}.js`),
   )
 
+  config.redirects = config.redirects || []
   /** @type {NetlifyRedirect[]} */
   const gatedRedirects = config.redirects.map((redirect) => ({
     ...redirect,
