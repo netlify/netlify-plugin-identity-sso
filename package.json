@@ -30,7 +30,9 @@
     "ava": "cross-env FORCE_COLOR=1 ava --verbose",
     "release": "release-it"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@iarna/toml": "^2.2.5"
+  },
   "devDependencies": {
     "@netlify/build": "^4.7.2",
     "ava": "^3.13.0",
