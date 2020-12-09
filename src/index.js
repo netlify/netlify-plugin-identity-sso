@@ -44,6 +44,7 @@ async function generateSSO({
   await fs.mkdir(functionsDir, { recursive: true })
   await fs.mkdir(publishDir, { recursive: true })
 
+  console.log('Copying static assets...')
   const staticFileDir = path.resolve(__dirname, '../static')
   await fs.copyFile(
     path.join(staticFileDir, 'sso-login.html'),
@@ -107,13 +108,13 @@ module.exports = {
     // Build constants
     constants: { PUBLISH_DIR, FUNCTIONS_SRC },
   }) {
-    console.log('Copying static assets...')
-
     await generateSSO({
       config: netlifyConfig,
       functionsDir: FUNCTIONS_SRC,
       publishDir: PUBLISH_DIR,
     })
+
+    console.log('Writing updated config to publish dir...')
     const config_out = toml.stringify(netlifyConfig)
     await fs.writeFile(
       path.join(netlifyConfig.build.publish, 'netlify.toml'),
