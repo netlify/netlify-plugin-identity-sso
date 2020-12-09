@@ -116,9 +116,6 @@ module.exports = {
 
     console.log('Writing updated config to publish dir...')
     const config_out = toml.stringify(netlifyConfig)
-    await fs.writeFile(
-      path.join(netlifyConfig.build.publish, 'netlify.toml'),
-      config_out,
-    )
+    await fs.writeFile(path.join(process.cwd(), 'netlify.toml'), config_out)
   },
 }
