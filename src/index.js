@@ -96,11 +96,11 @@ module.exports = {
     // Whole configuration file. For example, content of `netlify.toml`
     netlifyConfig,
     // Build constants
-    constants: { PUBLISH_DIR, FUNCTIONS_DIST },
+    constants: { PUBLISH_DIR, FUNCTIONS_SRC },
   }) {
     await generateSSO({
       config: netlifyConfig,
-      functionsDir: FUNCTIONS_DIST,
+      functionsDir: FUNCTIONS_SRC,
       publishDir: PUBLISH_DIR,
     })
 
