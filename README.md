@@ -6,7 +6,7 @@ The recommended way to install this right now is using a git npm dependency:
 
 `package.json`
 
-```json
+```js
 {
   // ...
   "dependencies": {
