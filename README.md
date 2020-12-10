@@ -10,7 +10,7 @@ The recommended way to install this right now is using a git npm dependency:
 {
   // ...
   "dependencies": {
-    "netlify-plugin-identity-sso": "mraerino/netlify-plugin-identity-sso#semver:^0.1"
+    "netlify-plugin-identity-sso": "mraerino/netlify-plugin-identity-sso#v0.1.0"
   }
 }
 ```
