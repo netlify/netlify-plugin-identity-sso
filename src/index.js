@@ -86,6 +86,8 @@ async function generateSSO({ config /* &mut */, functionsDir, publishDir }) {
   config.redirects = [...gatedRedirects, ...additionalRedirects]
 }
 
+const DEFAULT_FUNCTIONS_SRC = 'netlify-automatic-functions'
+
 module.exports = {
   // The plugin main logic uses `on...` event handlers that are triggered on
   // each new Netlify Build.
@@ -96,7 +98,7 @@ module.exports = {
     // Whole configuration file. For example, content of `netlify.toml`
     netlifyConfig,
     // Build constants
-    constants: { PUBLISH_DIR, FUNCTIONS_SRC },
+    constants: { PUBLISH_DIR, FUNCTIONS_SRC = DEFAULT_FUNCTIONS_SRC },
   }) {
     await generateSSO({
       config: netlifyConfig,
