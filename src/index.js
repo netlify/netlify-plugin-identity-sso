@@ -45,9 +45,9 @@ async function generateSSO({ config /* &mut */, functionsDir, publishDir }) {
     path.join(functionsDir, `${authFunc}.js`),
   )
 
-  config.redirects = config.redirects || []
+  const redirects = config.redirects || []
   /** @type {NetlifyRedirect[]} */
-  const gatedRedirects = config.redirects.map((redirect) => ({
+  const gatedRedirects = redirects.map((redirect) => ({
     ...redirect,
     conditions: {
       Role: ['netlify'],
@@ -83,7 +83,7 @@ async function generateSSO({ config /* &mut */, functionsDir, publishDir }) {
     },
   ]
 
-  config.redirects = [...gatedRedirects, ...additionalRedirects]
+  return { ...config, redirects: [...gatedRedirects, ...additionalRedirects] }
 }
 
 const DEFAULT_FUNCTIONS_SRC = 'netlify-automatic-functions'
@@ -100,14 +100,14 @@ module.exports = {
     // Build constants
     constants: { PUBLISH_DIR, FUNCTIONS_SRC = DEFAULT_FUNCTIONS_SRC },
   }) {
-    await generateSSO({
+    const newConfig = await generateSSO({
       config: netlifyConfig,
       functionsDir: FUNCTIONS_SRC,
       publishDir: PUBLISH_DIR,
     })
 
     console.log('Writing updated config to publish dir...')
-    const config_out = toml.stringify(netlifyConfig)
+    const config_out = toml.stringify(newConfig)
     await fs.writeFile(path.join(PUBLISH_DIR, 'netlify.toml'), config_out)
   },
 }
